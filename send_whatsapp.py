@@ -16,9 +16,14 @@ def send_whatsapp_message(message):
 
     try:
         response = requests.post(url, data=data, auth=HTTPBasicAuth(account_sid, auth_token))
+
+        # Log de réponse Twilio (à lire dans la console Streamlit)
+        print("✅ Code retour Twilio :", response.status_code)
+        print("📨 Réponse complète :", response.text)
+
         if response.status_code == 201:
             print("✅ Message WhatsApp envoyé avec succès.")
         else:
-            print(f"❌ Erreur WhatsApp : {response.status_code} – {response.text}")
+            print(f"❌ Échec de l'envoi : {response.status_code}")
     except Exception as e:
-        print(f"❌ Exception lors de l'envoi WhatsApp : {e}")
+        print(f"❌ Erreur d'envoi WhatsApp : {e}")
